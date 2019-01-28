@@ -45,7 +45,7 @@ class RiddleSpider(scrapy.Spider):
         question=self.getChineseRegexExtraction(question,'谜面：')
         strArray=question.split("（")
         #特殊情况暂不处理
-        if strArray.length==2:
+        if len(strArray)==2:
             question=strArray[0]
             hint="（"+strArray[1]
             answer=self.getChineseRegexExtraction(answer,'谜底：')
