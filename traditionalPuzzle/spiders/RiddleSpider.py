@@ -43,12 +43,15 @@ class RiddleSpider(scrapy.Spider):
         question=riddle.xpath('./h3[1]/text()').extract_first()
         answer=riddle.xpath('./h3[2]/text()').extract_first()
         question=self.getChineseRegexExtraction(question,'谜面：')
+        strArray=question.split("（")
+        question=strArray[0]
+        hint="（"+strArray[1]
         answer=self.getChineseRegexExtraction(answer,'谜底：')
-        # print question,answer
+        print question,hint,answer
         
         item=TraditionalpuzzleItem()
         item['question']=question
-        
+        item['hint']=hint
         item['answer']=answer
         item['explanation']=explanation
         yield item

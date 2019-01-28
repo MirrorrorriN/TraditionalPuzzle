@@ -16,7 +16,7 @@ class TraditionalpuzzlePipeline(object):
 
     def process_item(self, item, spider):
         #定义sql语句
-        sql = "INSERT INTO `mirror`.`riddle_base_info` (`riddle_question`, `riddle_answer`, `riddle_explanation`) VALUES ('"+item['question']+"', '"+item['answer']+"', '"+item['explanation']+"');"
+        sql = "INSERT INTO `mirror`.`riddle_base_info` (`riddle_question`, `riddle_hint`,`riddle_answer`, `riddle_explanation`) VALUES ('"+item['question']+"', '"+item['hint']+"','"+item['answer']+"', '"+item['explanation']+"');"
         
         if item['explanation']!='':
             #执行sql语句
