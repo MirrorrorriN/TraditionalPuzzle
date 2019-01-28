@@ -12,7 +12,7 @@ class RiddleSpider(scrapy.Spider):
     name = "riddle"
     allowed_domains = ["www.cmiyu.com"]
     start_urls = (
-        'http://www.cmiyu.com/zmmy/36705.html',
+        'http://www.cmiyu.com/zmmy/926.html',
     )
 
     def getChineseRegexExtraction(self, content,keyword):
@@ -44,20 +44,22 @@ class RiddleSpider(scrapy.Spider):
         answer=riddle.xpath('./h3[2]/text()').extract_first()
         question=self.getChineseRegexExtraction(question,'谜面：')
         strArray=question.split("（")
-        question=strArray[0]
-        hint="（"+strArray[1]
-        answer=self.getChineseRegexExtraction(answer,'谜底：')
-        print question,hint,answer
+        #特殊情况暂不处理
+        if strArray.length==2:
+            question=strArray[0]
+            hint="（"+strArray[1]
+            answer=self.getChineseRegexExtraction(answer,'谜底：')
+            print question,hint,answer
         
-        item=TraditionalpuzzleItem()
-        item['question']=question
-        item['hint']=hint
-        item['answer']=answer
-        item['explanation']=explanation
-        yield item
+            item=TraditionalpuzzleItem()
+            item['question']=question
+            item['hint']=hint
+            item['answer']=answer
+            item['explanation']=explanation
+            yield item
         
-        #下一篇 （可考虑改成逆序每次抓取一篇，因为网站更新从头开始，方便获取最新数据）
-        url = context.xpath('./div[@class="page"]/ul/li[2]/a/@href').extract_first()
+        #逆序每次抓取一篇，因为网站更新从头开始，方便获取最新数据
+        url = context.xpath('./div[@class="page"]/ul/li[1]/a/@href').extract_first()
         print url
         if url :
             #将信息组合成下一页的url
