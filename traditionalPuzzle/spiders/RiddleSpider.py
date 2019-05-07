@@ -12,7 +12,7 @@ class RiddleSpider(scrapy.Spider):
     name = "riddle"
     allowed_domains = ["www.cmiyu.com"]
     start_urls = (
-        'http://www.cmiyu.com/zmmy/33468.html',
+        'http://www.cmiyu.com/zmmy/36764.html',
     )
 
     def getChineseRegexExtraction(self, content,keyword):
